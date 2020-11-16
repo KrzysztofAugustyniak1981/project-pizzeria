@@ -82,7 +82,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-      console.log('lol', thisProduct.formInputs);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion(){
       const thisProduct = this;
@@ -133,13 +133,12 @@
 
     processOrder() {
       const thisProduct = this;
-      console.log('processOrder', thisProduct);
+      //console.log('processOrder', thisProduct);
 
 
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
-
+      
       /* set variable price to equal thisProduct.data.price */
       let productPrice = thisProduct.data.price;
       const params = thisProduct.data.params;
@@ -157,21 +156,26 @@
 
           /* save the element in param.options with key optionId as const option */
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-
+          const imageSelector = '.' + paramId + '-' + optionId;
+          const image = thisProduct.imageWrapper.querySelector(imageSelector);
           /* START IF: if option is selected and option is not default */
           if(optionSelected && !option.default) {
-
             /* add price of option to variable price */
             productPrice += option.price;
-
+            image.classList.add(classNames.menuProduct.imageVisible);
+            console.log('class add', image.classList);
+            
             /* END IF: if option is selected and option is not default */
           }
           /* START ELSE IF: if option is not selected and option is default */
           else if (!optionSelected && option.default) {
             /* deduct price of option from price */
             productPrice -= option.price;
+            image.classList.remove(classNames.menuProduct.imageVisible);
+            console.log('class remove', image.classList);
             /* END ELSE IF: if option is not selected and option is default */
           }
+          //Image
           /* END LOOP: for each optionId in param.options */
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
