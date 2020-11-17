@@ -162,8 +162,6 @@
           if(optionSelected && !option.default) {
             /* add price of option to variable price */
             productPrice += option.price;
-            image.classList.add(classNames.menuProduct.imageVisible);
-            console.log('class add', image.classList);
             
             /* END IF: if option is selected and option is not default */
           }
@@ -171,11 +169,13 @@
           else if (!optionSelected && option.default) {
             /* deduct price of option from price */
             productPrice -= option.price;
-            image.classList.remove(classNames.menuProduct.imageVisible);
-            console.log('class remove', image.classList);
             /* END ELSE IF: if option is not selected and option is default */
           }
-          //Image
+          if (image && optionSelected) {
+            image.classList.add(classNames.menuProduct.imageVisible);
+          } else if (image && !optionSelected) {
+            image.classList.remove(classNames.menuProduct.imageVisible);
+          }
           /* END LOOP: for each optionId in param.options */
         }
         /* END LOOP: for each paramId in thisProduct.data.params */
