@@ -325,7 +325,30 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       thisCart.generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(thisCart.generatedDOM);
-      console.log('adding product', menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, thisCart.generatedDOM));
+      console.log('thisCart.product', thisCart.products);
+    }
+  }
+  class CartProduct{
+    constructor(menuProduct, element){
+    thisCartProduct = this;
+    thisCartProduct.id = menuProduct.id;
+    thisCartProduct.name = menuProduct.name;
+    thisCartProduct.price = menuProduct.price;
+    thisCartProduct.priceSingle = menuProduct.priceSingle;
+    thisCartProduct.amount = menuProduct.amount;
+    thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+    thisCartProduct.getElements(element);
+    console.log('thisCartProduct class', thisCartProduct);
+    }
+    getElements(element){
+      const thisCartProduct = this;
+      thisCartProduct.dom = {};
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
     }
   }
   const app = {
@@ -338,7 +361,6 @@
     },
     initData: function(){
       const thisApp = this;
-
       thisApp.data = dataSource;
     },
     initCart: function(){
