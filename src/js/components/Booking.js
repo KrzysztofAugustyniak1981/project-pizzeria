@@ -4,19 +4,17 @@ import { DatePicker } from './DatePicker.js';
 import { HourPicker } from './HourPicker.js';
 import { utils } from '../utils.js';
 
-
-export class Booking{
-  constructor (bookingWrapper) {
+export class Booking {
+  constructor(bookingWrapper) {
     const thisBooking = this;
-    // thisBooking.render(thisApp.booking);
     thisBooking.render(bookingWrapper);
     thisBooking.initWidgets();
     thisBooking.getData();
+    //thisBooking.dom.wrapper = bookingWrapper;
   }
   render(bookingWrapper) {
     const thisBooking = this;
     const generatedHTML = templates.bookingWidget();
-
     thisBooking.dom = {};
     thisBooking.dom.wrapper = bookingWrapper;
     thisBooking.dom.wrapper.innerHTML = generatedHTML;
@@ -75,7 +73,6 @@ export class Booking{
   parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
     thisBooking.booked = {};
-    console.log('lala', thisBooking.booked);
     for (let item of eventsCurrent) {
       console.log('item:', item);
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
