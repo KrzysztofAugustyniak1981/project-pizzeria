@@ -57,7 +57,7 @@ const app = {
         /* execute initMenu method */
         thisApp.initMenu();
       });
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    //console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
   initCart: function(){
     const thisApp = this;
@@ -82,7 +82,7 @@ const app = {
   initBooking: function(){
     const thisApp = this;
     const bookingWrapper = document.querySelector(select.containerOf.booking);
-    console.log('bookingwrapper', bookingWrapper);
+    //console.log('bookingwrapper', bookingWrapper);
 
     thisApp.booking = new Booking(bookingWrapper);
   },
