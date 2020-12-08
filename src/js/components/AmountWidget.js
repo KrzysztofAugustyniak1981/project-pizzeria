@@ -27,8 +27,7 @@ export class AmountWidget extends BaseWidget {
   }
 
   isValid(newValue) {
-    return !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax; 
-
+    return !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax;
   }
 
   renderValue() {
