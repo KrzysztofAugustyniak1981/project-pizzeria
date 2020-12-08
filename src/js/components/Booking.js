@@ -217,4 +217,34 @@ export class Booking {
         console.log('parsedResponse', parsedResponse);
       });
   }
+  changeDateorHour() {
+    const thisBooking = this;
+    console.log('changeDateorHour');
+
+    const hours = [];
+
+    const startHour = settings.hours.open;
+
+    for (let hour = startHour; hour < settings.hours.close; hour += 0.5) {
+      if (typeof thisBooking.booked[date][hour].indexOf(table)) {
+
+        if (table.length == 1) {
+          thisBooking[hours].push(yellow);
+        } else if (table.length == 2) {
+          thisBooking[hours].push(orange);
+        } else if (table.length == 3) {
+          thisBooking[hours].push(red);
+        }
+
+        
+      } else {
+
+        thisBooking[hours].push(green);
+
+      }
+        
+    }
+
+    
+  }
 }
