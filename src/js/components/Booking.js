@@ -150,8 +150,8 @@ export class Booking {
         table.classList.remove(classNames.booking.tableBooked);
         console.log('free table');
       }
-
     }
+    thisBooking.colorSlider();
   }
   selectTable() {
     const thisBooking = this;
@@ -217,34 +217,30 @@ export class Booking {
         console.log('parsedResponse', parsedResponse);
       });
   }
-  changeDateorHour() {
+  colorSlider() {
     const thisBooking = this;
-    console.log('changeDateorHour');
+    const rangeSlider = document.querySelector('.rangeSlider__horizontal');
+    let colors = 'linear-gradient(to right';
+    let progress = 0;
+    let next = 4.2;
 
-    const hours = [];
-
-    const startHour = settings.hours.open;
-
-    for (let hour = startHour; hour < settings.hours.close; hour += 0.5) {
-      if (typeof thisBooking.booked[date][hour].indexOf(table)) {
-
-        if (table.length == 1) {
-          thisBooking[hours].push(yellow);
-        } else if (table.length == 2) {
-          thisBooking[hours].push(orange);
-        } else if (table.length == 3) {
-          thisBooking[hours].push(red);
-        }
-
-        
-      } else {
-
-        thisBooking[hours].push(green);
-
+    for (let timeOfBooking = 12; timeOfBooking <= 24; timeOfBooking += 0.5) {
+      if (typeof thisBooking.booked[thisBooking.date] === 'undefined' || typeof thisBooking.booked[thisBooking.date][timeOfBooking] === 'undefined') {
+        let nextValue = progress + next;
+        colors += ',green' + ' ' + progress + '%' + ' ' + nextValue + '%';
+        progress += next;
+      } else if (thisBooking.booked[thisBooking.date][timeOfBooking].length == 2) {
+        let nextValue = progress + next;
+        colors += ',yellow' + ' ' + progress + '%' + ' ' + nextValue + '%';
+        progress += next;
+      } else if (thisBooking.booked[thisBooking.date][timeOfBooking].length == 3) {
+        let nextValue = progress + next;
+        colors += ',red' + ' ' + progress + '%' + ' ' + nextValue + '%';
+        progress += next;
       }
-        
     }
-
-    
+    colors += ')';
+    console.log(colors);
+    rangeSlider.style.backgroundImage = colors;
   }
 }
